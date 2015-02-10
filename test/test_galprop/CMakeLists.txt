@@ -19,7 +19,7 @@ find_package(HealPix)
 find_package(CCFits)
 
 include_directories( ${CMAKE_SOURCE_DIR}/include 
-		     /storage/gpfs_ams/ams/users/vformato/devel/PropManager/include
+		     /storage/gpfs_ams/ams/users/vformato/devel/PropManager/test/test_install/include
 		     ${GALPROP_INCLUDE_DIR}
 		     ${HEALPIX_INCLUDE_DIR}
 		     ${CCFITS_INCLUDE_DIR}
@@ -40,8 +40,8 @@ add_definitions( ${GALPROP_DEFINITIONS}
 
 add_executable( test ${SOURCES} )
 target_link_libraries( test 
-		       /storage/gpfs_ams/ams/users/vformato/devel/PropManager/build/libPropManager.so
-		       /storage/gpfs_ams/ams/users/vformato/devel/PropManager/build/source/GalpropManager/libGalpropManager.so
+		       /storage/gpfs_ams/ams/users/vformato/devel/PropManager/test/test_install/lib/libPropManager.so
+		       /storage/gpfs_ams/ams/users/vformato/devel/PropManager/test/test_install/lib/libGalpropManager.so
 		       gfortran
 		       gfortranbegin
 		       gsl

@@ -46,7 +46,7 @@ if(NOT CCFITS_FOUND)
         DOC "CCFITS include directory.")
         
     find_library(CCFITS_LIBRARY 
-        CCfits
+        libCCFits.a CCfits
         HINTS $ENV{CCFITS_ROOT_DIR} ${CCFITS_ROOT_DIR} 
 	PATH_SUFFIXES CCfits/lib		    
         DOC "CCFITS library.")
