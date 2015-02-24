@@ -21,10 +21,11 @@ endif()
 set( CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/CMakeFiles )
 find_package(ROOT)
 find_package(Galprop)
+find_package(Dragon)
 find_package(HealPix)
 find_package(CCFits)
 if(NOT DEFINED CLHEP_CONFIG_EXECUTABLE)
-       message(FATAL_ERROR "CHLEP config executable not defined. Use -DCMAKE_CLHEP_EXECUTABLE flag to specify path")
+       message(FATAL_ERROR "CHLEP config executable not defined. Use -DCMAKE_CLHEP_EXECUTABLE option to specify path")
 endif()
 set(CLHEP_CONFIG_EXECUTABLE ${CLHEP_CONFIG_EXECUTABLE} CACHE FILEPATH "Path to chlep-config")
 find_package(CLHEP)
@@ -75,9 +76,19 @@ if( GALPROP_FOUND AND HEALPIX_FOUND AND CCFITS_FOUND )
 
 endif()
 
-#temporarily not supported
-if( DEFINED DRAGON_DIR )
+
+if( DRAGON_FOUND AND CFITSIO_FOUND )
+
+  message(STATUS "Enabling DragonManager package")
+
+  if(NOT DEFINED DRAGON_XML_PATH)
+    message( FATAL_ERROR "DRAGON_XML_PATH not defined. Please specify path to your DRAGON XML directory with -DDRAGON_XML_PATH=/pathtodir" )
+  endif()	    
+
+  set( USER_DRAGON_XML_PATH ${DRAGON_XML_PATH}/ CACHE PATH "Path to your DRAGON XML directory" )
+
   add_subdirectory( source/DragonManager )
+
 endif()
 
 
@@ -99,6 +110,7 @@ add_library( PropManager SHARED ${SOURCES} )
 
 target_link_libraries( PropManager
 		       GalpropManager
+		       DragonManager
 		       )
 
 install(DIRECTORY ${CMAKE_SOURCE_DIR}/include DESTINATION ${CMAKE_INSTALL_PREFIX}

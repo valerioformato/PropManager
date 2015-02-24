@@ -1,0 +1,4 @@
+find_path( NAMES Galprop.h
+           PATHS $ENV{AMSVERYBASE}
+
+find_library( 

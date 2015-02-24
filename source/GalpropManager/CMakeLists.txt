@@ -12,7 +12,7 @@ set( GALPROP_SOURCES
      ${CMAKE_CURRENT_SOURCE_DIR}/src/GalpropManager_setters.cpp )
 
 add_definitions( ${GALPROP_DEFINITIONS} 
-		 -DGALDEF_PATH=\"${GALDEF_PATH}\")
+		 -DGALDEF_PATH=\"${USER_GALDEF_PATH}\")
 
 
 add_library(GalpropManagerStatic STATIC ${GALPROP_SOURCES})

@@ -26,15 +26,15 @@ include(FindPackageHandleStandardArgs)
 # if all listed variables are TRUE
 find_package_handle_standard_args(GALPROP DEFAULT_MSG GALPROP_PATH)
 
-message(STATUS "Found GALPROP headers: ${GALPROP_INCLUDE_DIR}")
-message(STATUS "Found GALPROP libraries: ${GALPROP_LIBRARY} ${SKYMAP_LIBRARY}")
+message(STATUS "Found GALPROP: ${GALPROP_INCLUDE_DIR}")
+message(STATUS "Found GALPROP: ${GALPROP_LIBRARY} ${SKYMAP_LIBRARY}")
 
 if(GALPROP_FOUND)
     set(GALPROP_LIBRARIES ${GALPROP_LIBRARY} ${SKYMAP_LIBRARY})
     set(GALPROP_INCLUDE_DIRS ${GALPROP_INCLUDE_DIR} )
     set(GALPROP_DEFINITIONS 
-        -DGALPROP_DATA_PATH=\"${GALPROP_PATH}/DATA/\"
-        -DFITS_PATH=\"${GALPROP_PATH}/FITS/\")
+        -DGALPROP_DATA_PATH=\"${GALPROP_PATH}/DATA\"
+        -DFITS_PATH=\"${GALPROP_PATH}/FITS\")
 endif()
 
 

@@ -1,10 +1,10 @@
 #include <TFile.h>
 
-#include <GalpropManager.h>
+#include <DragonManager.h>
 
 int main(){
 
-  GalpropManager* mgr = new GalpropManager("test");
+  DragonManager* mgr = new DragonManager();
   mgr->Print();
   mgr->Run();
 
