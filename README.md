@@ -3,7 +3,7 @@ C++ interface to Galprop/DRAGON
 
 ## Download
 You can find the interface at the github repository https://github.com/valerioformato/PropManager
-You can download the priject via HTTPS, SSH, or SVN (links on the webpage) or just by
+You can download the project via HTTPS, SSH, or SVN (links on the webpage) or just by
 
 ```
 git clone https://github.com/valerioformato/PropManager.git PropManager
