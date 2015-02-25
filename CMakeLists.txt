@@ -66,10 +66,6 @@ if( GALPROP_FOUND AND HEALPIX_FOUND AND CCFITS_FOUND )
 
   message(STATUS "Enabling GalpropManager package")
 
-  if(NOT DEFINED GALDEF_PATH)
-    message( FATAL_ERROR "GALDEF_PATH not defined. Please specify path to your GALDEF directory with -DGALDEF_PATH=/pathtodir" )
-  endif()	    
-
   set( USER_GALDEF_PATH ${GALDEF_PATH}/ CACHE PATH "Path to your GALDEF directory" )
 
   add_subdirectory( source/GalpropManager )

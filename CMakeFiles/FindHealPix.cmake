@@ -13,14 +13,14 @@
 # HEALPIX_INCLUDE_DIR:	    where to find headers
 #
 
-if(APPLE)
-SET(MYLOCAL_HEALPIX_INCLUDEPATH $ENV{AMSVERYBASE}/galprop/Healpix/src/cxx/generic_gcc/include)
-SET(MYLOCAL_HEALPIX_LIBPATH $ENV{AMSVERYBASE}/galprop/Healpix/src/cxx/generic_gcc/lib)
-elseif (UNIX)
-SET(MYLOCAL_HEALPIX_INCLUDEPATH $ENV{AMSVERYBASE}/galprop/Healpix/src/cxx/generic_gcc/include)
-SET(MYLOCAL_HEALPIX_LIBPATH $ENV{AMSVERYBASE}/galprop/Healpix/src/cxx/generic_gcc/lib)
-endif(APPLE)
 
+if(NOT DEFINED HEALPIX_PATH)
+SET(HEALPIX_INCLUDEPATH $ENV{AMSVERYBASE}/galprop/Healpix/src/cxx/generic_gcc/include)
+SET(HEALPIX_LIBPATH     $ENV{AMSVERYBASE}/galprop/Healpix/src/cxx/generic_gcc/lib)
+else()
+SET(HEALPIX_INCLUDEPATH ${HEALPIX_PATH}/include)
+SET(HEALPIX_LIBPATH     ${HEALPIX_PATH}/lib)
+endif()
 
 FIND_PATH(HEALPIX_INCLUDE_DIR
 NAMES
@@ -28,7 +28,7 @@ NAMES
 PATHS
         /usr/include
         /usr/local/include
-        ${MYLOCAL_HEALPIX_INCLUDEPATH}
+        ${HEALPIX_INCLUDEPATH}
 )
 
 FIND_LIBRARY(HEALPIX_LIBRARIES
@@ -37,7 +37,7 @@ NAMES
 PATHS
         /usr/lib
         /usr/local/lib
-        ${MYLOCAL_HEALPIX_LIBPATH}
+        ${HEALPIX_LIBPATH}
 )
 FIND_LIBRARY(HEALPIX_CXXSUPPORT_LIBRARIES
 NAMES
@@ -45,7 +45,7 @@ NAMES
 PATHS
         /usr/lib
         /usr/local/lib
-        ${MYLOCAL_HEALPIX_LIBPATH}
+        ${HEALPIX_LIBPATH}
 )
 FIND_LIBRARY(HEALPIX_SHARP_LIBRARIES
 NAMES
@@ -53,7 +53,7 @@ NAMES
 PATHS
         /usr/lib
         /usr/local/lib
-        ${MYLOCAL_HEALPIX_LIBPATH}
+        ${HEALPIX_LIBPATH}
 )
 FIND_LIBRARY(HEALPIX_FFTPACK_LIBRARIES
 NAMES
@@ -61,7 +61,7 @@ NAMES
 PATHS
         /usr/lib
         /usr/local/lib
-        ${MYLOCAL_HEALPIX_LIBPATH}
+        ${HEALPIX_LIBPATH}
 )
 FIND_LIBRARY(HEALPIX_CUTILS_LIBRARIES
 NAMES
@@ -69,7 +69,7 @@ NAMES
 PATHS
         /usr/lib
         /usr/local/lib
-        ${MYLOCAL_HEALPIX_LIBPATH}
+        ${HEALPIX_LIBPATH}
 )
 
 SET(HEALPIX_FOUND FALSE)

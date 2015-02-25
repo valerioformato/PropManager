@@ -35,7 +35,7 @@
 
 if(NOT CFITSIO_FOUND)
 
-    if(GALPROP_FOUND)
+    if((NOT DEFINED CFITSIO_ROOT_DIR) AND GALPROP_FOUND)
         set(CFITSIO_ROOT_DIR ${GALPROP_PATH}/cfitsio)
     endif()
 

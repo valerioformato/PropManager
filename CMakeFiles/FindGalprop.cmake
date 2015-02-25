@@ -35,6 +35,11 @@ if(GALPROP_FOUND)
     set(GALPROP_DEFINITIONS 
         -DGALPROP_DATA_PATH=\"${GALPROP_PATH}/DATA/\"
         -DFITS_PATH=\"${GALPROP_PATH}/FITS/\")
+
+    if(NOT DEFINED GALDEF_PATH)
+        set(GALDEF_PATH ${GALPROP_PATH}/GALDEF) 
+	message(WARNING " GALDEF_PATH not defined. Using the default path ${GALDEF_PATH} \n For a user-defined path please specify the  path to your GALDEF directory with -DGALDEF_PATH=/pathtodir" )
+    endif()
 endif()
 
 

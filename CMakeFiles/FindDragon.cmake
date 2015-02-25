@@ -40,6 +40,10 @@ if(DRAGON_FOUND)
     set(DRAGON_DEFINITIONS 
         -DDRAGON_DATA_PATH=\"${DRAGON_PATH}/data/\"
         -DDRAGON_CONF_PATH=\"${DRAGON_PATH}/config_files/\")
+
+    if(NOT DEFINED DRAGON_XML_PATH)
+        message( FATAL_ERROR "DRAGON_XML_PATH not defined. Please specify path to your DRAGON XML directory with -DDRAGON_XML_PATH=/pathtodir" )
+    endif()           
 endif()
 
 
