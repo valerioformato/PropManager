@@ -80,6 +80,8 @@ Int_t DragonManager::Run(){
 
   fDragon->Run();
 
+  return 0; //DRAGON::Run() is a void function, so as default we return 0
+
 }
 
 TGraph* DragonManager::GetFlux( Int_t Z, Int_t A ){
@@ -100,8 +102,7 @@ TGraph* DragonManager::GetFlux( Int_t Z, Int_t A ){
   int n_points = eKin.size();
 
   vector<TParticle*> particles = fDragon->GetParticles();
-  int i=0;
-  for(int ipart=0; ipart<particles.size(); ipart++){
+  for(size_t ipart=0; ipart<particles.size(); ipart++){
 
     if(particles[ipart]->GetUid() != pid) continue;
     
@@ -111,7 +112,7 @@ TGraph* DragonManager::GetFlux( Int_t Z, Int_t A ){
     TGraph* temp_graph = new TGraph( n_points );
 
     double flux=0;
-    for(int ip=0; ip<eKin.size(); ip++){
+    for(size_t ip=0; ip<eKin.size(); ip++){
       if(A)
 	flux = pnorm * particles[ipart]->GetFluxAtSunPosition(ip);
       else
