@@ -1,7 +1,7 @@
 if( NOT DEFINED DRAGON_PATH )
     find_path( DRAGON_PATH
-    	       NAMES include/input.h
-    	       PATHS $ENV{AMSVERYBASE} $ENV{AMSVERYBASE}/Dragon/MultiThreaded $ENV{AMSVERYBASE}/Dragon/SingleThreaded
+    	       NAMES bin/DRAGON
+    	       PATHS $ENV{AMSVERYBASE} $ENV{AMSVERYBASE}/dragon/MultiThreaded $ENV{AMSVERYBASE}/dragon/SingleThreaded
 	       DOC "Dragon base directory" )
 endif()
 
@@ -31,10 +31,10 @@ include(FindPackageHandleStandardArgs)
 # if all listed variables are TRUE
 find_package_handle_standard_args(DRAGON DEFAULT_MSG DRAGON_PATH)
 
-message(STATUS "Found DRAGON headers: ${DRAGON_INCLUDE_DIR}")
-message(STATUS "Found DRAGON libraries: ${DRAGON_LIBRARY} ${TIXML_LIBRARY} ${CPARAM_LIBRARY}")
-
 if(DRAGON_FOUND)
+    message(STATUS "Found DRAGON headers: ${DRAGON_INCLUDE_DIR}")
+    message(STATUS "Found DRAGON libraries: ${DRAGON_LIBRARY} ${TIXML_LIBRARY} ${CPARAM_LIBRARY}")
+
     set(DRAGON_LIBRARIES ${DRAGON_LIBRARY} ${TIXML_LIBRARY} ${CPARAM_LIBRARY})
     set(DRAGON_INCLUDE_DIRS ${DRAGON_INCLUDE_DIR})
     set(DRAGON_DEFINITIONS 

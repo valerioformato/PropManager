@@ -41,7 +41,7 @@ add_definitions( ${DRAGON_DEFINITIONS} )
 add_executable( test ${SOURCES} )
 target_link_libraries( test 
 		       /storage/gpfs_ams/ams/users/vformato/devel/PropManager/test/test_install/lib/libPropManager.so
-		       /storage/gpfs_ams/ams/users/vformato/devel/PropManager/test/test_install/lib/libDragonManager.so
+#		       /storage/gpfs_ams/ams/users/vformato/devel/PropManager/test/test_install/lib/libDragonManager.so
 		       gfortran
 		       gfortranbegin
 		       gsl
