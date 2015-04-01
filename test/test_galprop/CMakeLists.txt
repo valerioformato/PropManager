@@ -26,6 +26,7 @@ include_directories( ${CMAKE_SOURCE_DIR}/include
 		     ${CFITSIO_INCLUDE_DIR}
 		     ${ROOT_INCLUDE_DIR} )
 
+include_directories( $ENV{LOC_INC} )
 
 
 set( SOURCES 
@@ -46,4 +47,5 @@ target_link_libraries( test
 		       gfortranbegin
 		       gsl
 		       gslcblas
-		       ${ROOT_LIBRARIES} )
+		       ${ROOT_LIBRARIES} 
+		       $ENV{LOC_LIB}/libAnalysisTools.so )

@@ -35,6 +35,13 @@
 #ifndef GALPROPMGR_H
 #define GALPROPMGR_H
 
+#ifndef GALPROP_MAIN_V
+#ifdef VERSION
+#define GALPROP_MAIN_V floor(VERSION)
+#endif
+#endif
+
+#define str(s) #s
 
 enum SourceType_t {kRigidity, kBetaRigidity, kEtot, nSourceTypes};
 
@@ -78,18 +85,32 @@ class GalpropManager : public PropManager {
 				Double_t nuc_rigid_br0,               
 				Double_t nuc_g_1,                     
 				Double_t nuc_rigid_br,                
-				Double_t nuc_g_2,                      
-				Double_t nuc_rigid_br2,               
+				Double_t nuc_g_2
+#if GALPROP_MAIN_V < 55
+				,Double_t nuc_rigid_br2,               
 				Double_t nuc_g_3                      
+#endif
 				);
+#if GALPROP_MAIN_V > 54
+  void SetNucleiSourceSpectrum( Int_t Z,
+				Int_t A,
+				Double_t nuc_g_0,                     
+				Double_t nuc_rigid_br0,               
+				Double_t nuc_g_1,                     
+				Double_t nuc_rigid_br,                
+				Double_t nuc_g_2
+				);
+#endif
 
   void SetElectronSourceSpectrum( Double_t electron_g_0,                  // index below electron_rigid_br0            IMOS20031012
 				  Double_t electron_rigid_br0,            // break rigidity0 for electron injection in MV
 				  Double_t electron_g_1,                  // spectral index between breaks
 				  Double_t electron_rigid_br,             // break rigidity1 for electron injection in MV
-				  Double_t electron_g_2,                  // spectral index above electron_rigid_br
-				  Double_t electron_rigid_br2,            // break rigidity1 for electron injection in MV
+				  Double_t electron_g_2                  // spectral index above electron_rigid_br
+#if GALPROP_MAIN_V < 55
+				  ,Double_t electron_rigid_br2,            // break rigidity1 for electron injection in MV
 				  Double_t electron_g_3                   // spectral index above electron_rigid_br
+#endif
 				  );
 
   void SetProtonAbundance( Double_t prot_ab );  
@@ -113,16 +134,20 @@ class GalpropManager : public PropManager {
   Double_t GetNuc_g_1(){ return fGaldef->nuc_g_1; };
   Double_t GetNuc_rigid_br(){ return fGaldef->nuc_rigid_br; };
   Double_t GetNuc_g_2(){ return fGaldef->nuc_g_2; };
+#if GALPROP_MAIN_V < 55
   Double_t GetNuc_rigid_br2(){ return fGaldef->nuc_rigid_br2; };
   Double_t GetNuc_g_3(){ return fGaldef->nuc_g_3; };
+#endif
 
   Double_t GetElectron_g_0(){ return fGaldef->electron_g_0; };
   Double_t GetElectron_rigid_br0(){ return fGaldef->electron_rigid_br0; };
   Double_t GetElectron_g_1(){ return fGaldef->electron_g_1; };
   Double_t GetElectron_rigid_br(){ return fGaldef->electron_rigid_br; };
   Double_t GetElectron_g_2(){ return fGaldef->electron_g_2; };
+#if GALPROP_MAIN_V < 55
   Double_t GetElectron_rigid_br2(){ return fGaldef->electron_rigid_br2; };
   Double_t GetElectron_g_3(){ return fGaldef->electron_g_3; };
+#endif
 
   Double_t GetProtonAbundance(){ return fGaldef->isotopic_abundance[1][1]; };  
 

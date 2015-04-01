@@ -71,11 +71,19 @@ void GalpropManager::SetEnergyGrid( Double_t E_min, Double_t E_max, Double_t E_f
 };
 
 void GalpropManager::SwitchToEnergyGrid(){
+#if GALPROP_MAIN_V < 55
   strncpy(fGaldef->p_Ekin_grid, "Ekin ", 5);
+#else
+  fGaldef->p_Ekin_grid = "Ekin";
+#endif
 };
 
 void GalpropManager::SwitchToMomentumGrid(){
+#if GALPROP_MAIN_V < 55
   strncpy(fGaldef->p_Ekin_grid, "p    ", 5);
+#else
+  fGaldef->p_Ekin_grid = "p";
+#endif
 };
 
 //--------------------------------------------------------------------------------------------------
@@ -104,7 +112,16 @@ void GalpropManager::SetAlfvenSpeed( Double_t v_Alfven ){
   fGaldef->v_Alfven = v_Alfven;
 };
 
-void GalpropManager::SetNucleiSourceSpectrum( Double_t nuc_g_0,	Double_t nuc_rigid_br0,	Double_t nuc_g_1, Double_t nuc_rigid_br, Double_t nuc_g_2, Double_t nuc_rigid_br2, Double_t nuc_g_3){
+void GalpropManager::SetNucleiSourceSpectrum( Double_t nuc_g_0,	
+					      Double_t nuc_rigid_br0,	
+					      Double_t nuc_g_1, 
+					      Double_t nuc_rigid_br, 
+					      Double_t nuc_g_2
+#if GALPROP_MAIN_V < 55
+					      ,Double_t nuc_rigid_br2, 
+					      Double_t nuc_g_3
+#endif
+					      ){
 
   if(nuc_g_0)
     fGaldef->nuc_g_0 = nuc_g_0;
@@ -116,13 +133,51 @@ void GalpropManager::SetNucleiSourceSpectrum( Double_t nuc_g_0,	Double_t nuc_rig
     fGaldef->nuc_rigid_br = nuc_rigid_br;
   if(nuc_g_2)
     fGaldef->nuc_g_2 = nuc_g_2;
+#if GALPROP_MAIN_V < 55
   if(nuc_rigid_br2)
     fGaldef->nuc_rigid_br2 = nuc_rigid_br2;
   if(nuc_g_3)
     fGaldef->nuc_g_3 = nuc_g_3;
+#endif
 
 };
 
+
+#if GALPROP_MAIN_V > 54
+void GalpropManager::SetNucleiSourceSpectrum( Int_t Z, 
+					      Int_t A, 
+					      Double_t nuc_g_0,	
+					      Double_t nuc_rigid_br0,	
+					      Double_t nuc_g_1, 
+					      Double_t nuc_rigid_br, 
+					      Double_t nuc_g_2
+					      ){
+
+  if( A==0 ){
+    for ( A=Z; A<Z*3; A++ ) {
+      SetNucleiSourceSpectrum( Z, A, nuc_g_0, nuc_rigid_br0, nuc_g_1, nuc_rigid_br, nuc_g_2 ); //Just beacuse I can. I know, I'm evil...
+    }
+    return;
+  }
+
+  std::pair<int, int> indx(Z, A);
+  Galdef::specProperties &prop = fGaldef->iso_inj_spectra[std::pair<int,int> (Z, A)];
+    
+  if(nuc_g_0)
+    prop.g_0 = nuc_g_0;
+  if(nuc_rigid_br0)
+    prop.rigid_br0 = nuc_rigid_br0;
+  if(nuc_g_1)
+    prop.g_1 = nuc_g_1;
+  if(nuc_rigid_br)
+    prop.rigid_br = nuc_rigid_br;
+  if(nuc_g_2)
+    prop.g_2 = nuc_g_2;
+
+  return;
+
+};
+#endif
 
 
 
@@ -130,9 +185,11 @@ void GalpropManager::SetElectronSourceSpectrum( Double_t electron_g_0,          
 						Double_t electron_rigid_br0,            // break rigidity0 for electron injection in MV
 						Double_t electron_g_1,                  // spectral index between breaks
 						Double_t electron_rigid_br,             // break rigidity1 for electron injection in MV
-						Double_t electron_g_2,                  // spectral index above electron_rigid_br
-						Double_t electron_rigid_br2,            // break rigidity1 for electron injection in MV
+						Double_t electron_g_2                  // spectral index above electron_rigid_br
+#if GALPROP_MAIN_V < 55
+						,Double_t electron_rigid_br2,            // break rigidity1 for electron injection in MV
 						Double_t electron_g_3                   // spectral index above electron_rigid_br
+#endif
 						){
 
   if(electron_g_0)
@@ -145,10 +202,12 @@ void GalpropManager::SetElectronSourceSpectrum( Double_t electron_g_0,          
     fGaldef->electron_rigid_br = electron_rigid_br;
   if(electron_g_2)
     fGaldef->electron_g_2 = electron_g_2;
+#if GALPROP_MAIN_V < 55
   if(electron_rigid_br2)
     fGaldef->electron_rigid_br2 = electron_rigid_br2;
   if(electron_g_3)
     fGaldef->electron_g_3 = electron_g_3;
+#endif
 
 };
 

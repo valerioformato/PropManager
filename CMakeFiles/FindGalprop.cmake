@@ -21,10 +21,16 @@ find_library( SKYMAP_LIBRARY
 	      DOC "Skymap library" )
 
 
+execute_process( COMMAND ${GALPROP_PATH}/bin/galprop-config --version
+		 OUTPUT_VARIABLE GALPROP_VERSION 
+		 OUTPUT_STRIP_TRAILING_WHITESPACE )
+
 include(FindPackageHandleStandardArgs)
 # handle the QUIETLY and REQUIRED arguments and set LOGGING_FOUND to TRUE
 # if all listed variables are TRUE
-find_package_handle_standard_args(GALPROP DEFAULT_MSG GALPROP_PATH)
+find_package_handle_standard_args( GALPROP FOUND_VAR GALPROP_FOUND
+			           REQUIRED_VARS GALPROP_PATH 
+ 				   VERSION_VAR   GALPROP_VERSION )
 
 message(STATUS "Found GALPROP headers: ${GALPROP_INCLUDE_DIR}")
 message(STATUS "Found GALPROP libraries: ${GALPROP_LIBRARY} ${SKYMAP_LIBRARY}")

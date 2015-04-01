@@ -7,11 +7,15 @@ include_directories( ${CMAKE_CURRENT_SOURCE_DIR}/include
 		     ${ROOT_INCLUDE_DIR}
 		     )
 
+string(REPLACE "." ";" VERSION_LIST ${GALPROP_VERSION})
+list(GET VERSION_LIST 0 GALPROP_VERSION_MAJOR)
+
 set( GALPROP_SOURCES
      ${CMAKE_CURRENT_SOURCE_DIR}/src/GalpropManager.cpp
      ${CMAKE_CURRENT_SOURCE_DIR}/src/GalpropManager_setters.cpp )
 
 add_definitions( ${GALPROP_DEFINITIONS} 
+		 -DGALPROP_MAIN_V=${GALPROP_VERSION_MAJOR}
 		 -DGALDEF_PATH=\"${USER_GALDEF_PATH}\")
 
 

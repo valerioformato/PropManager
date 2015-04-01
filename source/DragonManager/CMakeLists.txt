@@ -26,14 +26,13 @@ target_link_libraries( DragonManager
 		       gsl
 		       gslcblas
                       ${ROOT_LIBRARIES}
-		       "-WL, --whole-archive" 
+		       "-Wl,--whole-archive" 
                       ${DRAGON_LIBRARIES} 
 #                     ${HEALPIX_LIBRARIES} 
 #                     ${CCFITS_LIBRARIES} 
                       ${CFITSIO_LIBRARIES} 
 #		      ${CLHEP_LIBRARIES}
-		       DragonManagerStatic 
-		       "-WL, --no-whole-archive" 
+		       "-Wl,--no-whole-archive" 
 		       )
 
 install(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/include DESTINATION ${CMAKE_INSTALL_PREFIX}

@@ -4,6 +4,14 @@
 #define DEBUG 0
 #endif
 
+#ifndef GALPROP_MAIN_V
+#ifdef VERSION
+#define GALPROP_MAIN_V floor(VERSION)
+#endif
+#endif
+
+#define str(s) #s
+
 GalpropManager::GalpropManager( TString defgal ){
 
   firstrun = kTRUE;
@@ -58,8 +66,9 @@ Int_t GalpropManager::InitDefault(){
   configure->fGaldefDirectory = GALDEF_PATH;
   configure->fFITSDataDirectory = FITS_PATH;
 
+  TString galdef_path = ((TString) GALDEF_PATH) + "/";
 
-  if( fGaldef->read("54", _default_galdef.Data(), GALDEF_PATH) ){
+  if( fGaldef->read( str(GALPROP_MAIN_V), _default_galdef.Data(), galdef_path.Data()) ){
     cerr << ">>>> ERROR in GalpropManager::InitDefault(): Initialization failed! <<<<" << endl;
     return 1;
   }

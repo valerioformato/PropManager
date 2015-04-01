@@ -25,7 +25,7 @@ find_package(Dragon)
 find_package(HealPix)
 find_package(CCFits)
 if(NOT DEFINED CLHEP_CONFIG_EXECUTABLE)
-       message(FATAL_ERROR "CHLEP config executable not defined. Use -DCMAKE_CLHEP_EXECUTABLE option to specify path")
+       message(FATAL_ERROR "CHLEP config executable not defined. Use -DCLHEP_CONFIG_EXECUTABLE option to specify path")
 endif()
 set(CLHEP_CONFIG_EXECUTABLE ${CLHEP_CONFIG_EXECUTABLE} CACHE FILEPATH "Path to chlep-config")
 find_package(CLHEP)
@@ -64,7 +64,7 @@ ENDIF("${isSystemDir}" STREQUAL "-1")
 # -------------------------------------------------------------------
 if( GALPROP_FOUND AND HEALPIX_FOUND AND CCFITS_FOUND )
 
-  message(STATUS "Enabling GalpropManager package")
+  message(STATUS "Enabling GalpropManager package based on version ${GALPROP_VERSION}")
 
   set( USER_GALDEF_PATH ${GALDEF_PATH}/ CACHE PATH "Path to your GALDEF directory" )
 
