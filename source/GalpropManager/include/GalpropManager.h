@@ -37,11 +37,17 @@
 
 #ifndef GALPROP_MAIN_V
 #ifdef VERSION
-#define GALPROP_MAIN_V floor(VERSION)
+#define GALPROP_MAIN_V VERSION
 #endif
 #endif
 
-#define str(s) #s
+#define str2(s) #s
+#define str(s) str2(s)
+
+#if GALPROP_MAIN_V > 54
+#include <Nuclei_Interface.h>
+#include <Processes_Interface.h>
+#endif
 
 enum SourceType_t {kRigidity, kBetaRigidity, kEtot, nSourceTypes};
 
@@ -85,11 +91,9 @@ class GalpropManager : public PropManager {
 				Double_t nuc_rigid_br0,               
 				Double_t nuc_g_1,                     
 				Double_t nuc_rigid_br,                
-				Double_t nuc_g_2
-#if GALPROP_MAIN_V < 55
-				,Double_t nuc_rigid_br2,               
-				Double_t nuc_g_3                      
-#endif
+				Double_t nuc_g_2,
+				Double_t nuc_rigid_br2=0,               
+				Double_t nuc_g_3=0
 				);
 #if GALPROP_MAIN_V > 54
   void SetNucleiSourceSpectrum( Int_t Z,
@@ -106,11 +110,9 @@ class GalpropManager : public PropManager {
 				  Double_t electron_rigid_br0,            // break rigidity0 for electron injection in MV
 				  Double_t electron_g_1,                  // spectral index between breaks
 				  Double_t electron_rigid_br,             // break rigidity1 for electron injection in MV
-				  Double_t electron_g_2                  // spectral index above electron_rigid_br
-#if GALPROP_MAIN_V < 55
-				  ,Double_t electron_rigid_br2,            // break rigidity1 for electron injection in MV
-				  Double_t electron_g_3                   // spectral index above electron_rigid_br
-#endif
+				  Double_t electron_g_2,                  // spectral index above electron_rigid_br
+				  Double_t electron_rigid_br2=0,          // break rigidity1 for electron injection in MV
+				  Double_t electron_g_3=0                 // spectral index above electron_rigid_br
 				  );
 
   void SetProtonAbundance( Double_t prot_ab );  
@@ -137,6 +139,10 @@ class GalpropManager : public PropManager {
 #if GALPROP_MAIN_V < 55
   Double_t GetNuc_rigid_br2(){ return fGaldef->nuc_rigid_br2; };
   Double_t GetNuc_g_3(){ return fGaldef->nuc_g_3; };
+#else
+  //dummy in version > 55
+  Double_t GetNuc_rigid_br2(){ return 42; };
+  Double_t GetNuc_g_3(){ return 42; };
 #endif
 
   Double_t GetElectron_g_0(){ return fGaldef->electron_g_0; };
@@ -147,6 +153,10 @@ class GalpropManager : public PropManager {
 #if GALPROP_MAIN_V < 55
   Double_t GetElectron_rigid_br2(){ return fGaldef->electron_rigid_br2; };
   Double_t GetElectron_g_3(){ return fGaldef->electron_g_3; };
+#else
+  //dummy in version > 55
+  Double_t GetElectron_rigid_br2(){ return 42; };
+  Double_t GetElectron_g_3(){ return 42; };
 #endif
 
   Double_t GetProtonAbundance(){ return fGaldef->isotopic_abundance[1][1]; };  

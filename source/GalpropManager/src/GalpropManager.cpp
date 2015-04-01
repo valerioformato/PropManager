@@ -1,16 +1,17 @@
 #include <GalpropManager.h>
 
 #ifndef DEBUG
-#define DEBUG 0
+#define DEBUG 1
 #endif
+
+#define str2(s) #s
+#define str(s) str2(s)
 
 #ifndef GALPROP_MAIN_V
 #ifdef VERSION
 #define GALPROP_MAIN_V floor(VERSION)
 #endif
 #endif
-
-#define str(s) #s
 
 GalpropManager::GalpropManager( TString defgal ){
 
@@ -68,14 +69,21 @@ Int_t GalpropManager::InitDefault(){
 
   TString galdef_path = ((TString) GALDEF_PATH) + "/";
 
-  if( fGaldef->read( str(GALPROP_MAIN_V), _default_galdef.Data(), galdef_path.Data()) ){
+
+  string ver = str(GALPROP_MAIN_V); 
+  if( fGaldef->read( ver, _default_galdef.Data(), galdef_path.Data()) ){
     cerr << ">>>> ERROR in GalpropManager::InitDefault(): Initialization failed! <<<<" << endl;
     return 1;
   }
 
   read_nucdata( GALPROP_DATA_PATH );          //Reading nuclear data
+#if GALPROP_MAIN_V > 54
+  processes::sigtap_cc( -1, GALPROP_DATA_PATH );         //Initialization of the Barashenkov & Polanski cross section code
+  nuclei::set_sigma_cc( GALPROP_DATA_PATH );          //initialization of the Webber's routine
+#else
   sigtap_cc( -1, GALPROP_DATA_PATH );         //Initialization of the Barashenkov & Polanski cross section code
   set_sigma_cc( GALPROP_DATA_PATH );          //initialization of the Webber's routine
+#endif
 
   return 0;
 
@@ -95,8 +103,9 @@ Int_t GalpropManager::Run(){
     if( fGalprop->create_gcr() )          return 1;
   }
   if( fGalprop->propagate_particles() ) return 1;
+#if GALPROP_MAIN_V < 55
   fGalprop->cr_luminosity();
-
+#endif
   firstrun = kFALSE;
 
   if(DEBUG){

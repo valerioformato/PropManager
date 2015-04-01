@@ -116,11 +116,9 @@ void GalpropManager::SetNucleiSourceSpectrum( Double_t nuc_g_0,
 					      Double_t nuc_rigid_br0,	
 					      Double_t nuc_g_1, 
 					      Double_t nuc_rigid_br, 
-					      Double_t nuc_g_2
-#if GALPROP_MAIN_V < 55
-					      ,Double_t nuc_rigid_br2, 
+					      Double_t nuc_g_2,
+					      Double_t nuc_rigid_br2, 
 					      Double_t nuc_g_3
-#endif
 					      ){
 
   if(nuc_g_0)
@@ -185,11 +183,9 @@ void GalpropManager::SetElectronSourceSpectrum( Double_t electron_g_0,          
 						Double_t electron_rigid_br0,            // break rigidity0 for electron injection in MV
 						Double_t electron_g_1,                  // spectral index between breaks
 						Double_t electron_rigid_br,             // break rigidity1 for electron injection in MV
-						Double_t electron_g_2                  // spectral index above electron_rigid_br
-#if GALPROP_MAIN_V < 55
-						,Double_t electron_rigid_br2,            // break rigidity1 for electron injection in MV
+						Double_t electron_g_2,                  // spectral index above electron_rigid_br
+						Double_t electron_rigid_br2,            // break rigidity1 for electron injection in MV
 						Double_t electron_g_3                   // spectral index above electron_rigid_br
-#endif
 						){
 
   if(electron_g_0)

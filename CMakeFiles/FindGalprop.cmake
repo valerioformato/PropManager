@@ -5,6 +5,13 @@ if( NOT DEFINED GALPROP_PATH )
 	       DOC "Galprop base directory" )
 endif()
 
+execute_process( COMMAND ${GALPROP_PATH}/bin/galprop-config --version
+		 OUTPUT_VARIABLE GALPROP_VERSION 
+		 OUTPUT_STRIP_TRAILING_WHITESPACE )
+string(REPLACE "." ";" VERSION_LIST ${GALPROP_VERSION})
+list(GET VERSION_LIST 0 GALPROP_VERSION_MAJOR)
+
+
 find_path( GALPROP_INCLUDE_DIR
 	   NAMES Galprop.h
 	   PATHS ${GALPROP_PATH}/include
@@ -20,10 +27,27 @@ find_library( SKYMAP_LIBRARY
 	      PATHS ${GALPROP_PATH}/lib
 	      DOC "Skymap library" )
 
+if( GALPROP_VERSION VERSION_GREATER 55 )
+    find_library( UTILS_LIBRARY
+    		  NAMES libutils.a	
+		  PATHS ${GALPROP_PATH}/lib
+		  DOC "Utils library" )
 
-execute_process( COMMAND ${GALPROP_PATH}/bin/galprop-config --version
-		 OUTPUT_VARIABLE GALPROP_VERSION 
-		 OUTPUT_STRIP_TRAILING_WHITESPACE )
+    find_library( GALSTRUCT_LIBRARY
+    		  NAMES libgalstruct.a	
+		  PATHS ${GALPROP_PATH}/lib
+		  DOC "GalStruct library" )
+
+    find_library( NUCLEI_LIBRARY
+    		  NAMES libnuclei.a	
+		  PATHS ${GALPROP_PATH}/lib
+		  DOC "Nuclei library" )
+
+    find_library( PROC_LIBRARY
+    		  NAMES libprocesses.a	
+		  PATHS ${GALPROP_PATH}/lib
+		  DOC "Processes library" )
+endif()
 
 include(FindPackageHandleStandardArgs)
 # handle the QUIETLY and REQUIRED arguments and set LOGGING_FOUND to TRUE
@@ -37,8 +61,12 @@ message(STATUS "Found GALPROP libraries: ${GALPROP_LIBRARY} ${SKYMAP_LIBRARY}")
 
 if(GALPROP_FOUND)
     set(GALPROP_LIBRARIES ${GALPROP_LIBRARY} ${SKYMAP_LIBRARY})
+    if( GALPROP_VERSION VERSION_GREATER 55 )
+    	set(GALPROP_LIBRARIES ${GALPROP_LIBRARIES} ${UTILS_LIBRARY} ${GALSTRUCT_LIBRARY} ${NUCLEI_LIBRARY} ${PROC_LIBRARY})
+    endif()
     set(GALPROP_INCLUDE_DIRS ${GALPROP_INCLUDE_DIR} )
     set(GALPROP_DEFINITIONS 
+        -DGALPROP_MAIN_V=${GALPROP_VERSION_MAJOR}
         -DGALPROP_DATA_PATH=\"${GALPROP_PATH}/DATA/\"
         -DFITS_PATH=\"${GALPROP_PATH}/FITS/\")
 

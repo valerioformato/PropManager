@@ -7,15 +7,15 @@ include_directories( ${CMAKE_CURRENT_SOURCE_DIR}/include
 		     ${ROOT_INCLUDE_DIR}
 		     )
 
-string(REPLACE "." ";" VERSION_LIST ${GALPROP_VERSION})
-list(GET VERSION_LIST 0 GALPROP_VERSION_MAJOR)
+if( GALPROP_VERSION VERSION_GREATER 55 )
+    find_package(XercesC)
+endif()
 
 set( GALPROP_SOURCES
      ${CMAKE_CURRENT_SOURCE_DIR}/src/GalpropManager.cpp
      ${CMAKE_CURRENT_SOURCE_DIR}/src/GalpropManager_setters.cpp )
 
 add_definitions( ${GALPROP_DEFINITIONS} 
-		 -DGALPROP_MAIN_V=${GALPROP_VERSION_MAJOR}
 		 -DGALDEF_PATH=\"${USER_GALDEF_PATH}\")
 
 
@@ -29,14 +29,14 @@ target_link_libraries( GalpropManager
 		       gsl
 		       gslcblas
                       ${ROOT_LIBRARIES}
-		       "-WL, --whole-archive" 
+		      ${XERCESC_LIBRARIES}
+		       "-Wl,--whole-archive" 
                       ${GALPROP_LIBRARIES} 
                       ${HEALPIX_LIBRARIES} 
                       ${CCFITS_LIBRARIES} 
-                      ${CFITSIO_LIBRARIES} 
+#                      ${CFITSIO_LIBRARIES} 
 		      ${CLHEP_LIBRARIES}
-		       GalpropManagerStatic 
-		       "-WL, --no-whole-archive" 
+		       "-Wl,--no-whole-archive" 
 		       )
 
 install(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/include DESTINATION ${CMAKE_INSTALL_PREFIX}
