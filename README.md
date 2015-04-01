@@ -10,10 +10,13 @@ git clone https://github.com/valerioformato/PropManager.git PropManager
 ```
 
 ## Prerequisites
- - CMake (at least `v2.6`)
+ - CMake (at least `v2.8`)
  - ROOT (tested with ROOT `v5.26` or greater)
- - Galprop (tested with `v54_r2504`, retrocompatibility not guaranteed in Galprop)
+ - Galprop (tested with `v54_r2504` and `v55_r2713`, retrocompatibility not guaranteed in Galprop)
  - DRAGON  (tested with `v3.0.1` or greater)
+
+#### N.B.
+If you want to use Galprop version `55` you should at least have version `4.7` of gcc (or anything that ships with OpenMP version `3.1` or greater). Also the gsl library has to be at least version `1.15`.
 
 ##Installation
 The installation is done using the CMake toolkit. We recommend to build the project outside the source directory (as always with CMake installations)
@@ -49,6 +52,7 @@ Other options that may be needed, depending on where you installed Galprop and/o
 ```
 -CFITSIO_ROOT_DIR=<path to your cfitsio installation> 
 -CCFITS_ROOT_DIR=<path to your CCfits installation> 
+-XERCESC_ROOT_DIR=<path to your XercesC installation> 
 -DHEALPIX_PATH=<path to your Healpix installation> 
 -DGALPROP_PATH=<path to your Galprop installation> 
 -DGALDEF_PATH=<path to your GALDEF directory>          #If you store your GALDEF files in a custom directory
