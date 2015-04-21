@@ -35,12 +35,6 @@
 #ifndef GALPROPMGR_H
 #define GALPROPMGR_H
 
-#ifndef GALPROP_MAIN_V
-#ifdef VERSION
-#define GALPROP_MAIN_V VERSION
-#endif
-#endif
-
 #define str2(s) #s
 #define str(s) str2(s)
 
@@ -71,6 +65,11 @@ class GalpropManager : public PropManager {
   void SetGalaxyYdim( Double_t y_min, Double_t y_max, Double_t dy ); //only 3D case
   void SetGalaxyZdim( Double_t z_min, Double_t z_max, Double_t dz );
   void SetGalaxyRdim( Double_t r_min, Double_t r_max, Double_t dr ); //only 2D case
+#if GALPROP_MAIN_V > 54
+  void SetBubbleDimension( Double_t r );
+  void SetGasDensityFactor( Double_t factor );
+#endif
+
 
   // -- Solution Parameters
   void SetMomentumGrid( Double_t p_min, Double_t p_max, Double_t p_factor );

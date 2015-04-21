@@ -98,10 +98,10 @@ Int_t GalpropManager::Run(){
 
   //  fGalprop->galdef = *fGaldef;
 
-  if(firstrun){
+  //  if(firstrun){
     if( fGalprop->create_galaxy() )       return 1;
     if( fGalprop->create_gcr() )          return 1;
-  }
+    //  }
   if( fGalprop->propagate_particles() ) return 1;
 #if GALPROP_MAIN_V < 55
   fGalprop->cr_luminosity();

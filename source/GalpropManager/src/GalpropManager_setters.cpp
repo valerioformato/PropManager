@@ -47,6 +47,19 @@ void GalpropManager::SetGalaxyRdim( Double_t r_min, Double_t r_max, Double_t dr 
     fGaldef->dr = dr;
 };
 
+#if GALPROP_MAIN_V > 54
+void GalpropManager::SetBubbleDimension( Double_t r ){
+  if( r<0 )
+    r = 2 * fGaldef->r_max;
+
+  fGaldef->local_bubble_radius = r;
+};
+
+void GalpropManager::SetGasDensityFactor( Double_t factor ){
+  fGaldef->local_bubble_gas_fraction = factor;
+};
+#endif
+
 //--------------------------------------------------------------------------------------------------
 //--------------------------------------------------------------------------------------------------
 //--------------------------------------------------------------------------------------------------
