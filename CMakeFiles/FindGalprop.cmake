@@ -10,7 +10,7 @@ execute_process( COMMAND ${GALPROP_PATH}/bin/galprop-config --version
 		 OUTPUT_STRIP_TRAILING_WHITESPACE )
 string(REPLACE "." ";" VERSION_LIST ${GALPROP_VERSION})
 list(GET VERSION_LIST 0 GALPROP_VERSION_MAJOR)
-
+message( ${GALPROP_PATH} )
 
 find_path( GALPROP_INCLUDE_DIR
 	   NAMES Galprop.h

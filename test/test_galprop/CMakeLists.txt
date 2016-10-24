@@ -23,6 +23,13 @@ endif()
 set(CLHEP_CONFIG_EXECUTABLE ${CLHEP_CONFIG_EXECUTABLE} CACHE FILEPATH "Path to chlep-config")
 find_package(CLHEP)
 
+
+execute_process( COMMAND root-config --version
+         COMMAND cut -b1-4
+         OUTPUT_VARIABLE RVERSION
+         OUTPUT_STRIP_TRAILING_WHITESPACE )
+
+
 include_directories( ${CMAKE_SOURCE_DIR}/include 
 		     /storage/gpfs_ams/ams/users/vformato/devel/PropManager/test/test_install/include
 		     ${GALPROP_INCLUDE_DIR}
@@ -41,6 +48,10 @@ set( SOURCES
 
 set( CMAKE_C_FLAGS "-g -Wall -fno-common -pthread -fopenmp" )
 set( CMAKE_CXX_FLAGS "-g -Wall -fno-common -pthread -fopenmp" )
+if( RVERSION VERSION_GREATER 6.00 )
+  # message( "ROOT6 detected" )
+  set( CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
+endif()
 
 add_definitions( ${GALPROP_DEFINITIONS} 
 		 -DGALDEF_PATH=\"${GALDEF_PATH}\")

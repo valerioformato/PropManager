@@ -192,12 +192,15 @@ TGraph* GalpropManager::GetFlux(Int_t Z, Int_t A){
 
   //All fluxes added to the list now sum them up!
   TGraph* tot_flux = new TGraph( n_points );
+  Double_t x, y;
   for(Int_t ipt=0; ipt<n_points; ipt++){
-    tot_flux->GetX()[ipt] = ((TGraph*) _flist->At(0))->GetX()[ipt] * 1e-3;  //1e-3 = conversion factor between MeV and GeV
+    y=0;
+    x = ((TGraph*) _flist->At(0))->GetX()[ipt] * 1e-3;  //1e-3 = conversion factor between MeV and GeV
 
     for(Int_t ngraph=0; ngraph<_flist->GetEntries(); ngraph++)
-      tot_flux->GetY()[ipt] += ((TGraph*) _flist->At(ngraph))->GetY()[ipt] * 1e7;  //1e7 = conversion factor between (MeV/n cm^2 s sr)^-1 and (GeV/n m^2 s sr)^-1
+      y += ((TGraph*) _flist->At(ngraph))->GetY()[ipt] * 1e7;  //1e7 = conversion factor between (MeV/n cm^2 s sr)^-1 and (GeV/n m^2 s sr)^-1
 
+    tot_flux->SetPoint(ipt, x, y);
   }
 
   delete _flist;

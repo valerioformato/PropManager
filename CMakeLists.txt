@@ -33,11 +33,20 @@ find_package(CLHEP)
 # -------------------------------------------------------------------
 # ---------------------- Preparing compilation ----------------------
 # -------------------------------------------------------------------
+execute_process( COMMAND root-config --version
+         COMMAND cut -b1-4
+         OUTPUT_VARIABLE RVERSION
+         OUTPUT_STRIP_TRAILING_WHITESPACE )
+
 include_directories( ${CMAKE_SOURCE_DIR}/include 
 		     ${ROOT_INCLUDE_DIR} )
 
 set( CMAKE_C_FLAGS "-g -fPIC -Wall -fno-common -pthread -fopenmp" )
 set( CMAKE_CXX_FLAGS "-g -fPIC -Wall -fno-common -pthread -fopenmp" )
+if( RVERSION VERSION_GREATER 6.00 )
+  # message( "ROOT6 detected" )
+  set( CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
+endif()
 
 # use, i.e. don't skip the full RPATH for the build tree
 SET(CMAKE_SKIP_BUILD_RPATH  FALSE)
