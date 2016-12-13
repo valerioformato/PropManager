@@ -50,9 +50,9 @@ There are at least two mandatory options to compile `PropManager`, which are:
 
 Other options that may be needed, depending on where you installed Galprop and/or DRAGON are:
 ```
--CFITSIO_ROOT_DIR=<path to your cfitsio installation> 
--CCFITS_ROOT_DIR=<path to your CCfits installation> 
--XERCESC_ROOT_DIR=<path to your XercesC installation> 
+-DCFITSIO_ROOT_DIR=<path to your cfitsio installation> 
+-DCCFITS_ROOT_DIR=<path to your CCfits installation> 
+-DXERCESC_ROOT_DIR=<path to your XercesC installation> 
 -DHEALPIX_PATH=<path to your Healpix installation> 
 -DGALPROP_PATH=<path to your Galprop installation> 
 -DGALDEF_PATH=<path to your GALDEF directory>          #If you store your GALDEF files in a custom directory
