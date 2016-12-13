@@ -42,13 +42,13 @@ if(NOT CCFITS_FOUND)
     find_path(CCFITS_INCLUDE_DIR 
         NAMES CCfits/CCfits.h
         HINTS $ENV{CCFITS_ROOT_DIR} ${CCFITS_ROOT_DIR}
-	PATH_SUFFIXES CCfits
+	PATH_SUFFIXES include
         DOC "CCFITS include directory.")
         
     find_library(CCFITS_LIBRARY 
         libCCFits.a CCfits
         HINTS $ENV{CCFITS_ROOT_DIR} ${CCFITS_ROOT_DIR} 
-	PATH_SUFFIXES CCfits/lib		    
+	PATH_SUFFIXES lib		    
         DOC "CCFITS library.")
   
     find_package(CFITSIO REQUIRED)

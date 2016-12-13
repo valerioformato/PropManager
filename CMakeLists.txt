@@ -41,7 +41,7 @@ execute_process( COMMAND root-config --version
 include_directories( ${CMAKE_SOURCE_DIR}/include 
 		     ${ROOT_INCLUDE_DIR} )
 
-set( CMAKE_C_FLAGS "-g -fPIC -Wall -fno-common -pthread -fopenmp" )
+set( CMAKE_C_FLAGS   "-g -fPIC -Wall -fno-common -pthread -fopenmp" )
 set( CMAKE_CXX_FLAGS "-g -fPIC -Wall -fno-common -pthread -fopenmp" )
 if( RVERSION VERSION_GREATER 6.00 )
   # message( "ROOT6 detected" )
@@ -78,6 +78,10 @@ if( GALPROP_FOUND AND HEALPIX_FOUND AND CCFITS_FOUND )
   set( USER_GALDEF_PATH ${GALDEF_PATH}/ CACHE PATH "Path to your GALDEF directory" )
 
   add_subdirectory( source/GalpropManager )
+
+else()
+
+  message( WARNING "Some of the prerequisites for GalpropManager were not found, disabling the target" )
 
 endif()
 
